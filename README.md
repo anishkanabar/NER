@@ -1,4 +1,4 @@
-Fine-tuning Transformers for Named Entity Recognition in Broadcast Police
+# Fine-tuning Transformers for Named Entity Recognition in Broadcast Police
 Communications
 
 Anish Kanabar, University of Chicago
@@ -47,10 +47,8 @@ Categorization (EWNERTC), a collection of automatically categorized and annotate
 from Wikipedia articles. It consists of roughly 7 million annotated sentences, divided into 49
 separate domains, though the authors limited the number of entity types per domain to 50 due to
 limited examples for some entity types. The five models tested, mentioned earlier, were a CRF, a
-Bi-LSTM-CNN-CRF, BERT, RoBERTa, and XLNet. At the time of testing, the BiLSTM-CNN-
-
-
-CRF was considered the state of the art model for NER, but the researchers found that the
+Bi-LSTM-CNN-CRF, BERT, RoBERTa, and XLNet. At the time of testing, the BiLSTM-CNN-CRF was 
+considered the state of the art model for NER, but the researchers found that the
 transformer-based models performed better overall in terms of F1 score and displayed
 significantly higher Recall. Finally, a comparison of the F1 scores across domains revealed that
 all the models were similarly impacted by domain – either a domain was relatively easy for all
@@ -93,10 +91,7 @@ transmissions have not been annotated and many consist solely of a dispatch code
 transmissions that would be informative for model training. 500 such examples were selected
 with the criteria that each must contain at least two different types of named entities. This subset
 was then manually annotated for words and phrases that consisted of addresses, events, dispatch
-codes, and person names using the doccano open-source text annotation tool (Figure 1).
-
-Figure 1: an example of an annotated transmission.
-
+codes, and person names using the doccano open-source text annotation tool.
 
 Some transmissions contain brackets containing speech the transcriber was not certain how to
 transcribe; this text was treated the same as unbracketed text. It is also worth noting that
@@ -136,7 +131,6 @@ objective, training with larger batches, and utilizing Byte-Pair Encoding as opp
 WordPiece embeddings. Dynamic masking entailed duplicating the training data 10 times so that
 each sequence could be masked in 10 different ways over the 40 epochs of training. This
 prevented the same tokens from being masked in each epoch and thus lost from the vocabulary.
-
 
 Increasing the batch size from 256 sequences to 2,000 and then 8,000 yielded decreases in model
 perplexity while removing the next sentence prediction task did not degrade performance. The
@@ -184,10 +178,10 @@ Results
 Figure 2: Fine-tuned Model Performance
 
 ```
-Accuracy Precision Recall F
-BERT 0.956 0.811 0.863 0.
-RoBERTa 0.951 0.886 0.911 0.
-XLNet 0.949 0.847 0.917 0.
+          Accuracy Precision Recall F1
+BERT      0.956    0.811     0.863 0.
+RoBERTa   0.951    0.886     0.911 0.
+XLNet     0.949    0.847     0.917 0.
 ```
 
 Figure 3: Effect of Task Specific Pre-training
