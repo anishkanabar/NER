@@ -194,7 +194,6 @@ XLNet 0.949 0.954 0.847 0.875 0.917 0.907 0.881 0.
 ```
 Figure 4: Recall by Named Entity Type and Effect of Task Specific Pre-training
 
-```
           Address             Event               Code                Name
 BERT      0.875 0.914         0.898 0.932         0.836 0.821         0.737 0.455
 RoBERTa   0.954 0.954         0.900 0.936         0.847 0.876         0.885 0.808
