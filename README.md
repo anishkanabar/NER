@@ -1,7 +1,5 @@
 # Fine-tuning Transformers for Named Entity Recognition in Broadcast Police Communications
 
-Anish Kanabar
-
 Abstract
 
 Three Transformer based models – BERT, RoBERTa, and XLNet – were fine-tuned for custom
@@ -175,7 +173,6 @@ trained for 8 epochs without pre-training and 5 epochs with pre-training.
 Results
 
 Figure 2: Fine-tuned Model Performance
-
 ```
           Accuracy  Precision Recall    F1
 BERT      0.956     0.811     0.863     0.836
@@ -183,17 +180,15 @@ RoBERTa   0.951     0.886     0.911     0.898
 XLNet     0.949     0.847     0.917     0.881
 ```
 
-Figure 3: Effect of Task Specific Pre-training
-
+Figure 3: Effect of Task Specific Pre-training 
 ```
-Accuracy Precision Recall F
-```
-BERT 0.956 0.941 0.811 0.852 0.863 0.886 0.836 0.
-RoBERTa 0.951 0.962 0.886 0.895 0.911 0.926 0.898 0.
-XLNet 0.949 0.954 0.847 0.875 0.917 0.907 0.881 0.
+          Accuracy            Precision           Recall              F1
+BERT      0.956 0.941         0.811 0.852         0.863 0.886         0.836 0.869
+RoBERTa   0.951 0.962         0.886 0.895         0.911 0.926         0.898 0.910
+XLNet     0.949 0.954         0.847 0.875         0.917 0.907         0.881 0.891
 ```
 Figure 4: Recall by Named Entity Type and Effect of Task Specific Pre-training
-
+```
           Address             Event               Code                Name
 BERT      0.875 0.914         0.898 0.932         0.836 0.821         0.737 0.455
 RoBERTa   0.954 0.954         0.900 0.936         0.847 0.876         0.885 0.808
