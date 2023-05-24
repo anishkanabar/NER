@@ -1,7 +1,6 @@
-# Fine-tuning Transformers for Named Entity Recognition in Broadcast Police
-Communications
+# Fine-tuning Transformers for Named Entity Recognition in Broadcast Police Communications
 
-Anish Kanabar, University of Chicago
+Anish Kanabar
 
 Abstract
 
@@ -178,17 +177,16 @@ Results
 Figure 2: Fine-tuned Model Performance
 
 ```
-          Accuracy Precision Recall F1
-BERT      0.956    0.811     0.863 0.
-RoBERTa   0.951    0.886     0.911 0.
-XLNet     0.949    0.847     0.917 0.
+          Accuracy  Precision Recall    F1
+BERT      0.956     0.811     0.863     0.836
+RoBERTa   0.951     0.886     0.911     0.898  
+XLNet     0.949     0.847     0.917     0.881
 ```
 
 Figure 3: Effect of Task Specific Pre-training
 
 ```
 Accuracy Precision Recall F
-```
 ```
 BERT 0.956 0.941 0.811 0.852 0.863 0.886 0.836 0.
 RoBERTa 0.951 0.962 0.886 0.895 0.911 0.926 0.898 0.
@@ -197,80 +195,49 @@ XLNet 0.949 0.954 0.847 0.875 0.917 0.907 0.881 0.
 Figure 4: Recall by Named Entity Type and Effect of Task Specific Pre-training
 
 ```
-Address Event Code Name
-BERT 0.875 0.914 0.898 0.932 0.836 0.821 0.737 0.
-RoBERTa 0.954 0.954 0.900 0.936 0.847 0.876 0.885 0.
-XLNet 0.944 0.954 0.940 0.937 0.839 0.799 0.759 0.
+          Address             Event               Code                Name
+BERT      0.875 0.914         0.898 0.932         0.836 0.821         0.737 0.455
+RoBERTa   0.954 0.954         0.900 0.936         0.847 0.876         0.885 0.808
+XLNet     0.944 0.954         0.940 0.937         0.839 0.799         0.759 0.586
 ```
 Discussion
 
 The three main findings of this study are: 1) RoBERTa and XLNet outperform BERT on NER in
-
 the BPC domain (Figure 2), 2) pre-training on a general NER dataset improves the performance
-
 of all three models in BPC NER (Figure 3), and 3) pre-training may not improve – and may even
-
 degrade – performance in detecting an entity that occurs both in the task specific pre-training set
-
 and the fine-tuning set (Figure 4). The fact that RoBERTa outperforms BERT is not surprising,
-
 considering that RoBERTa was trained on 10 times as much data and contains 15M more
-
 parameters. However, XLNet-base was trained on the same amount of data (16 GB) and contains
-
 the number of parameters (110M), so it seems likely that replacing masked language modeling
 with permutation language modeling in an architectural improvement. Since XLNet is forced to
-
 make predictions in situations with less information, for example predicting the 4th word when
-
 only the 2nd and 6th are known, it makes sense that it can extract more information from the same
-
 amount of text. BERT, by contrast, only makes two predictions per example and neglects the
-
 potential relationship between the two masked tokens. To examine the robustness of RoBERTa,
-
 it would be interesting to observe whether RoBERTa-large would outperform XLNet-large,
-
 which contain a similar number of parameters (340M vs 355M) and are trained on the same
-
 amount of data (160GB).
 
 The improvement of model performance following task specific pre-training stands in contrast to
-
 what was observed by Hofer et al. In their study, pre-training on CoNLL-2003 yielded an F
-
 score of 0.6847 compared with 0.6930 for a random weight initialization. However, when they
-
 solely pre-trained the BiLSTM layer, the F1 increased to 0.7119. Therefore, the benefit of task
-
 specific pre-training may be architecture dependent. Unfortunately, a BPC domain specific
-
 dataset is not available, so it is not possible to determine whether pre-training on one would yield
-
 further improvement in performance. There are other radio transmission datasets available, such
-
-
 the Air Traffic Control archive, so if it is feasible to annotate this dataset for NER it may be
-
 worth exploring as a pre-training option.
 
 Nonetheless, the decrease in performance in detecting person names suggests that the transfer of
-
 weights from one dataset to another is not as straightforward as it may seem. It is worth noting
-
 that person name is the smallest entity category in the BPC dataset with only 169 tokens
-
 compared to 10,059 tokens in the CoNLL-2003 dataset. Consequently, the weights may have
-
 been overly influenced by how person names occur in the Reuters based pre-training set. For
 instance, a common way in which names occur in BPC is “We have a [first name]” rather than
-
 “[first name] [last name] called the police”, which one might read in a news article. Once the
-
 BPC dataset is fully annotated and the models can be trained on more data, it is possible that bias
-
 toward the pre-train set for person names will diminish or even that Recall will improve with
-
 pre-training for this entity.
 
 References
@@ -293,5 +260,3 @@ Language-independent named entity recognition. In CoNLL, 2003.
 Zhilin Yang, Zihang Dai, Yiming Yang, Jaime Carbonell, Ruslan Salakhutdinov, Quoc V
 Le. XLNET: Generalized autoregressive pretraining for language understanding. In:
 Advances in neural information processing systems, pp. 5754–5764, 2019.
-
-
